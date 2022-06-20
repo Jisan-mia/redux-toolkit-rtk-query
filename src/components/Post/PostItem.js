@@ -1,4 +1,5 @@
 import React from 'react'
+import PostAuthor from './PostAuthor'
 
 const PostItem = ({post}) => {
   return (
@@ -7,6 +8,7 @@ const PostItem = ({post}) => {
       <p className='text-slate-700 font-normal text-sm'>
         {post.content}
       </p>
+      <PostAuthor post={post} />
     </div>
   )
 }

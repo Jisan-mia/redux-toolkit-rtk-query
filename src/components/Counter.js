@@ -29,15 +29,15 @@ const Counter = () => {
           onClick={() => {
             dispatch(incrementByAmount(countInput))
             setCountInput(0)
-
           }}
-          className='rounded-md border-none outline-none focus:ring-4 focus:ring-blue-300 bg-blue-700 text-white font-bold text-xl py-2 px-7 block flex items-center justify-center'
+          className='rounded-md border-none outline-none focus:ring-4 focus:ring-blue-300 bg-blue-700 text-white font-bold text-xl py-2 px-7  flex items-center justify-center'
         >Add</button>
         <button
           onClick={() => {
             dispatch(reset())
+            setCountInput(0)
           }}
-          className='rounded-md border-none outline-none focus:ring-4 focus:ring-blue-300 bg-blue-700 text-white font-bold text-xl py-2 px-7 block flex items-center justify-center'
+          className='rounded-md border-none outline-none focus:ring-4 focus:ring-blue-300 bg-blue-700 text-white font-bold text-xl py-2 px-7  flex items-center justify-center'
         >Reset</button>
      </div>
     </div>

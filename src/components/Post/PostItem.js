@@ -1,5 +1,6 @@
 import React from 'react'
 import PostAuthor from './PostAuthor'
+import TimeAgo from './TimeAgo'
 
 const PostItem = ({post}) => {
   return (
@@ -8,7 +9,10 @@ const PostItem = ({post}) => {
       <p className='text-slate-700 font-normal text-sm'>
         {post.content}
       </p>
-      <PostAuthor post={post} />
+      <div className='flex gap-3 items-center'>
+        <PostAuthor post={post} />
+        <TimeAgo timeStamp={post.createdAt} />
+      </div>
     </div>
   )
 }

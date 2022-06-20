@@ -6,12 +6,14 @@ import PostItem from './PostItem';
 const PostList = () => {
   const posts = useSelector(selectAllPost);
 
+  const orderedPost  = posts.slice().sort((a,b) => b.createdAt.localeCompare(a.data))
+
 
   return (
     <React.Fragment>
       <h1 className='text-2xl font-bold pb-3'>All Posts</h1>
       <div className='grid gap-3'>
-        {posts.map(post => (
+        {orderedPost.map(post => (
           <PostItem key={post.id} post={post} />
         ))}
       </div>

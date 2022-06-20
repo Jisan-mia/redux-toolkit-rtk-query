@@ -8,7 +8,7 @@ const PostComp = () => {
       <div className='col-start-1 col-end-3'>
         <AddPost />
       </div>
-      <div className='col-start-3 col-end-6'>
+      <div className='col-start-3 col-end-6 overflow-y-auto max-h-[calc(100vh-50px)]'>
         <PostList />
       </div>
     </div>

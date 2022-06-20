@@ -1,5 +1,6 @@
 import React from 'react'
 import PostAuthor from './PostAuthor'
+import ReactionButtons from './ReactionButtons'
 import TimeAgo from './TimeAgo'
 
 const PostItem = ({post}) => {
@@ -13,6 +14,7 @@ const PostItem = ({post}) => {
         <PostAuthor post={post} />
         <TimeAgo timeStamp={post.createdAt} />
       </div>
+      <ReactionButtons post={post} />
     </div>
   )
 }

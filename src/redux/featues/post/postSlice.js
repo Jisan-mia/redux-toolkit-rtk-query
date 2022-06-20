@@ -56,13 +56,14 @@ export const postSlice = createSlice({
           }
         }
       },
-      reactToPost: (state, action) => {
-        const {postId, reaction} = action.payload;
-        const findPost = state.find(post => post.id == postId);
-        if(findPost) {
-          findPost.reactions[reaction]++
+      
+    },
+    reactToPost: (state, action) => {
+      const { postId, reaction } = action.payload
+        const existingPost = state.find(post => post.id === postId)
+        if (existingPost) {
+            existingPost.reactions[reaction]++
         }
-      }
     }
   }
 })

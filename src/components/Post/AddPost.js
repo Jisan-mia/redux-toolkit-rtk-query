@@ -6,25 +6,25 @@ import { selectAllUsers } from '../../redux/featues/users/usersSlice';
 const AddPost = () => {
   const [formData, setFormData] = useState({
     title: '',
-    content: ''
+    body: ''
   });
   const dispatch = useDispatch()
   const [selectedUserId, setSelectedUserId] = useState('')
  
   const users = useSelector(selectAllUsers)
 
-  const canSubmit = formData.title && formData.content && selectedUserId
+  const canSubmit = formData.title && formData.body && selectedUserId
 
   const handleAddPOst = (e) => {
     e.preventDefault();
     if(canSubmit) {
-      dispatch(addPost(formData.title, formData.content, selectedUserId))
+      dispatch(addPost(formData.title, formData.body, selectedUserId))
     } else {
       alert('Please fill all the field')
     }
     setFormData({
       title: '',
-      content: '',
+      body: '',
     })
     setSelectedUserId('')
   }
@@ -57,7 +57,7 @@ const AddPost = () => {
         
         <div className='flex flex-col gap-2'>
           <label htmlFor="content">Content</label>
-          <textarea placeholder='Post content' value={formData.content} onChange={e => setFormData({...formData, content: e.target.value})} name="content" id="content" className='h-28 border border-gray-400 outline-none focus:ring-4 focus-within:ring-blue-300 text-xl rounded-md p-1' />
+          <textarea placeholder='Post content' value={formData.body} onChange={e => setFormData({...formData, body: e.target.value})} name="content" id="content" className='h-28 border border-gray-400 outline-none focus:ring-4 focus-within:ring-blue-300 text-xl rounded-md p-1' />
         </div>
         
         <input disabled={!canSubmit} type="submit" value="Submit" className='cursor-pointer rounded-md border-none outline-none focus:ring-4 focus:ring-blue-300 bg-blue-700 text-white font-bold text-lg py-2 px-7 block flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed'/>

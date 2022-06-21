@@ -1,11 +1,7 @@
 import React from 'react'
 import AddPost from './AddPost'
 import PostList from './PostList'
-import { fetchUsers } from '../../redux/featues/users/usersSlice'
-import {store} from '../../redux/store'
 
-
-store.dispatch(fetchUsers())
 
 const PostComp = () => {
   return (

@@ -5,12 +5,14 @@ import TimeAgo from './TimeAgo'
 
 import {useSelector} from 'react-redux'
 import { selectPostById } from '../../redux/featues/post/postSlice'
+import {useParams} from 'react-router-dom'
 
 const PostItemPage = ({}) => {
   // retrieve post id
+  const { postId } = useParams()
 
 
-  const post = useSelector((state) =>  selectPostById(state, postId))
+  const post = useSelector((state) =>  selectPostById(state, Number(postId)))
 
   if(!post) {
     return <h2>Post Not Found!</h2>

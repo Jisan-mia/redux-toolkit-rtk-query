@@ -8,7 +8,7 @@ import {useDispatch} from 'react-redux'
 import { deletePost } from '../../redux/featues/post/postSlice'
 import Spinner from '../ui/Spinner'
 
-const PostItem = ({post}) => {
+let PostItem = ({post}) => {
   const [isLoading, setIsLoading] = useState(false)
 
   const dispatch = useDispatch()
@@ -49,5 +49,7 @@ const PostItem = ({post}) => {
     </div>
   )
 }
+
+PostItem = React.memo(PostItem)
 
 export default PostItem

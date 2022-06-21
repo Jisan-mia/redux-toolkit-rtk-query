@@ -32,7 +32,9 @@ const PostList = () => {
   
   return (
     <React.Fragment>
-      <h1 className='text-2xl font-bold pb-3'>All Posts</h1>
+      <h1 className='text-2xl font-bold pb-3 flex items-center justify-between'>All Posts
+        <small className='mr-2 text-base font-normal'>Total: {posts.length}</small>
+      </h1>
       {content}
     </React.Fragment>
   )

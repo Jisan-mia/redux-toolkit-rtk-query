@@ -24,6 +24,7 @@ const ReactionButtons = ({post}) => {
           reaction: name
         }))
       }}
+      title={name[0].toUpperCase() + name.slice(1).toLowerCase()}
       className='flex gap-[2px] items-center rounded-full border border-[#dedede] py-[2px] px-2'
     >
       <span>{emoji}</span> <span>{post.reactions[name]}</span>

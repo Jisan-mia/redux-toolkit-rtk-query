@@ -42,6 +42,15 @@ export const fetchPosts = createAsyncThunk('posts/fetchPosts', async () => {
   }
 })
 
+export const addNewPost = createAsyncThunk('posts/addNewPost', async (initialPost) => {
+  try{
+    const response = await axios.post(POST_API, initialPost)
+    return response.data
+  } catch(e) {
+    return e.message
+  }
+})
+
 const initialState = {
   posts: [],
   status: 'idle', // 'idle' | 'loading' | 'succeed' | 'failed'
@@ -77,11 +86,12 @@ export const postSlice = createSlice({
       
     },
     reactToPost: (state, action) => {
+      // console.log(action.payload)
       const { postId, reaction } = action.payload
-        const existingPost = state.posts.find(post => post.id === postId)
-        if (existingPost) {
-            existingPost.reactions[reaction]++
-        }
+      const existingPost = state.posts.find(post => post.id === postId)
+      if (existingPost) {
+          existingPost.reactions[reaction]++
+      }
     }
   },
   extraReducers(builder) {
@@ -104,13 +114,28 @@ export const postSlice = createSlice({
           }
           return post
         })
+        // console.log(loadedPosts)
 
         // add any fetched post to the array
-        state.posts = state.posts.concat(loadedPosts)
+        state.posts = loadedPosts
       })
       .addCase(fetchPosts.rejected, (state, action) => {
         state.status = 'failed';
         state.error = action.error.message
+      })
+      .addCase(addNewPost.fulfilled, (state, action) => {
+        action.payload.userId = Number(action.payload.userId)
+        action.payload.createdAt = new Date().toISOString();
+        action.payload.reactions = {
+          thumbsUp: 0,
+          wow: 0,
+          heart: 0,
+          rocket: 0,
+          coffee: 0
+        }
+        console.log(action.payload)
+        state.posts.push(action.payload)
+
       })
   }
 })

@@ -24,9 +24,9 @@ const PostList = () => {
   } else {
     const orderedPost  = posts.slice().sort((a,b) => b.createdAt.localeCompare(a.data))
     content = <div className='grid gap-3'>
-              {orderedPost.map(post => (
-                <PostItem key={post.id} post={post} />
-              ))}
+                {orderedPost.map((post, idx) => (
+                  <PostItem key={idx} post={post} />
+                ))}
             </div>
   }
   

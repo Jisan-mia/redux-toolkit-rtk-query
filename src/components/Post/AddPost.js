@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { addPost } from '../../redux/featues/post/postSlice';
+import { addPost,addNewPost } from '../../redux/featues/post/postSlice';
 import { selectAllUsers } from '../../redux/featues/users/usersSlice';
 
 const AddPost = () => {
@@ -10,15 +10,29 @@ const AddPost = () => {
   });
   const dispatch = useDispatch()
   const [selectedUserId, setSelectedUserId] = useState('')
+  const [addRequestStatus, setAddRequestStatus] = useState('idle')
  
   const users = useSelector(selectAllUsers)
 
-  const canSubmit = formData.title && formData.body && selectedUserId
+  const canSubmit = [formData.title, formData.body, selectedUserId].every(Boolean) && addRequestStatus == 'idle'
 
   const handleAddPOst = (e) => {
     e.preventDefault();
     if(canSubmit) {
-      dispatch(addPost(formData.title, formData.body, selectedUserId))
+      try{
+        setAddRequestStatus('pending')
+        dispatch(addNewPost({
+          title: formData.title,
+          body: formData.body,
+          userId: selectedUserId
+        })).unwrap()
+
+        
+      } catch(e) {
+        console.error('Failed to save post', e)
+      } finally {
+        setAddRequestStatus('idle')
+      }
     } else {
       alert('Please fill all the field')
     }

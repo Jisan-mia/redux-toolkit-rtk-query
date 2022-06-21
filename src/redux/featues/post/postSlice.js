@@ -65,9 +65,8 @@ export const updatePost = createAsyncThunk('posts/updatePost', async (initialPos
 export const deletePost = createAsyncThunk('posts/deletePost', async(initialPost) => {
   const {id} = initialPost;
   try{
-    const res = axios.delete(`${POST_API}/${id}`)
-    console.log((await res).status)
-    if((await res).status === 200) return initialPost;
+    const res = await axios.delete(`${POST_API}/${id}`)
+    if(res?.status === 200) return initialPost;
     return `${res?.status}: ${res.statusText}`
   } catch(e) {
     return e.message 

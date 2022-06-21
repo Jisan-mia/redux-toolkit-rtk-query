@@ -1,16 +1,20 @@
-import React from 'react'
+import React, { useState } from 'react'
 import PostAuthor from './PostAuthor'
 import ReactionButtons from './ReactionButtons'
 import TimeAgo from './TimeAgo'
 
-import {useSelector} from 'react-redux'
-import { selectPostById } from '../../redux/featues/post/postSlice'
+import {useSelector, useDispatch} from 'react-redux'
+import { deletePost, selectPostById } from '../../redux/featues/post/postSlice'
 import {useParams, Link, useNavigate} from 'react-router-dom'
+import Spinner from '../ui/Spinner'
 
 const PostItemPage = ({}) => {
   // retrieve post id
   const { postId } = useParams()
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false)
+  
+  const dispatch = useDispatch()
 
 
   const post = useSelector((state) =>  selectPostById(state, Number(postId)))
@@ -19,8 +23,18 @@ const PostItemPage = ({}) => {
     return <h2>Post Not Found!</h2>
   }
 
-  const handleDeletePost = () => {
-    navigate('/')
+
+
+  const handleDeletePost = async () => {
+    try{
+      setIsLoading(true)
+      await dispatch(deletePost(post)).unwrap()
+      navigate('/')
+    } catch(e) {
+      console.error(e)
+    } finally{
+      setIsLoading(false)
+    }
   }
 
   return (
@@ -47,7 +61,7 @@ const PostItemPage = ({}) => {
         <div className='flex items-center justify-between w-full'>
         <ReactionButtons post={post} />
         <button title='Delete Post' onClick={handleDeletePost}>
-          ✖️
+          {isLoading ? <Spinner /> : '✖️'}
         </button>
       </div>
       </div>

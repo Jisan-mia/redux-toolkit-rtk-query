@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import PostAuthor from './PostAuthor'
 import ReactionButtons from './ReactionButtons'
 import TimeAgo from './TimeAgo'
@@ -6,15 +6,22 @@ import {Link} from 'react-router-dom'
 
 import {useDispatch} from 'react-redux'
 import { deletePost } from '../../redux/featues/post/postSlice'
+import Spinner from '../ui/Spinner'
 
 const PostItem = ({post}) => {
+  const [isLoading, setIsLoading] = useState(false)
+
   const dispatch = useDispatch()
 
-  const handleDeletePost = () => {
+  const handleDeletePost = async () => {
+
     try{
-      dispatch(deletePost(post))
+      setIsLoading(true)
+      await dispatch(deletePost(post))
     } catch(e) {
       console.error(e)
+    } finally {
+      setIsLoading(false)
     }
   }
 
@@ -36,7 +43,7 @@ const PostItem = ({post}) => {
       <div className='flex items-center justify-between w-full'>
         <ReactionButtons post={post} />
         <button title='Delete Post' onClick={handleDeletePost}>
-          ✖️
+          {isLoading ? <Spinner /> : '✖️'}
         </button>
       </div>
     </div>

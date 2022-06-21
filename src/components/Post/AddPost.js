@@ -75,6 +75,8 @@ const AddPost = () => {
         </div>
         
         <input disabled={!canSubmit} type="submit" value="Submit" className='cursor-pointer rounded-md border-none outline-none focus:ring-4 focus:ring-blue-300 bg-blue-700 text-white font-bold text-lg py-2 px-7 block flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed'/>
+      
+      
       </form>
     </div>
   )
